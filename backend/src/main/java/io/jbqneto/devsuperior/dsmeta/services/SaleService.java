@@ -23,8 +23,13 @@ public class SaleService {
             String minDate,
             String maxDate
     ) {
+        var dateMin = "".equals(minDate)
+                ? LocalDate.now().minusYears(1)
+                : LocalDate.parse(minDate);
 
-        return this.repository.findByPeriod(pageable, LocalDate.parse(minDate), LocalDate.parse(maxDate));
+        var dateMax = "".equals(maxDate) ? LocalDate.now() : LocalDate.parse(maxDate);
+
+        return this.repository.findByPeriod(pageable, dateMin, dateMax);
     }
 
     public Optional<Sale> findById(Long id) {

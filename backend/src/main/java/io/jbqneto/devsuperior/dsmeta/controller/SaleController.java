@@ -2,7 +2,7 @@ package io.jbqneto.devsuperior.dsmeta.controller;
 
 import io.jbqneto.devsuperior.dsmeta.client.ClientMessageResponse;
 import io.jbqneto.devsuperior.dsmeta.entities.Sale;
-import io.jbqneto.devsuperior.dsmeta.services.SMSService;
+import io.jbqneto.devsuperior.dsmeta.services.NotificationService;
 import io.jbqneto.devsuperior.dsmeta.services.SaleService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -14,11 +14,13 @@ import java.util.NoSuchElementException;
 @RequestMapping(value = "/sales")
 public class SaleController {
     private final SaleService service;
-    private final SMSService smsService;
+    private final NotificationService notificationService;
 
-    public SaleController(SaleService service, SMSService smsService) {
+
+
+    public SaleController(SaleService service, NotificationService notificationService) {
         this.service = service;
-        this.smsService = smsService;
+        this.notificationService = notificationService;
     }
 
     @GetMapping(value = "", produces = "application/json")
@@ -32,7 +34,9 @@ public class SaleController {
 
     @GetMapping(value = "/{saleId}/notification", produces = "application/json")
     public ClientMessageResponse sendSMS(@PathVariable Long saleId) {
-        var sale = this.service.findById(saleId).orElseThrow(() -> new NoSuchElementException("Sale not found"));
+        var sale = this.service.findById(saleId)
+                .orElseThrow(() -> new NoSuchElementException("Sale not found"));
+
         String date = sale.getDate().getMonthValue() + "/" + sale.getDate().getYear();
 
         StringBuilder message = new StringBuilder();
@@ -44,7 +48,6 @@ public class SaleController {
                 .append(" com um total de R$ ")
                 .append(sale.getAmount());
 
-
-        return this.smsService.sendMessage("+351920596767", message.toString());
+        return this.notificationService.sendMessage("+351920596767", message.toString());
     }
 }

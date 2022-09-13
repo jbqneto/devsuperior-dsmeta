@@ -75,6 +75,10 @@
   .show992 {
       display: none;
   }
+
+  .notify-container .notify-btn {
+    cursor: pointer;  
+  }
   
   @media (min-width: 576px) {
       .show576 {

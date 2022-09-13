@@ -5,15 +5,15 @@ import io.jbqneto.devsuperior.dsmeta.client.MessageClient;
 import org.springframework.stereotype.Service;
 
 @Service
-public class SMSService {
+public class NotificationService {
 
-    private final MessageClient messageClient;
+    private final MessageClient twilioClient;
 
-    public SMSService(MessageClient client) {
-        this.messageClient = client;
+    public NotificationService(MessageClient twilioClient) {
+        this.twilioClient = twilioClient;
     }
 
     public ClientMessageResponse sendMessage(String to, String message) {
-        return this.messageClient.sendMessage(to, message);
+        return this.twilioClient.sendMessage(to, message);
     }
 }
