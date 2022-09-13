@@ -48,6 +48,6 @@ public class SaleController {
                 .append(" com um total de R$ ")
                 .append(sale.getAmount());
 
-        return this.notificationService.sendMessage("+351920596767", message.toString());
+        return this.notificationService.sendMessage(message.toString());
     }
 }

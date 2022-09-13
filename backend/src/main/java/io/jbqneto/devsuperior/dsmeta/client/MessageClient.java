@@ -1,5 +1,5 @@
 package io.jbqneto.devsuperior.dsmeta.client;
 
 public interface MessageClient {
-    public ClientMessageResponse sendMessage(String to, String message);
+    public ClientMessageResponse sendMessage(String message);
 }

@@ -7,13 +7,13 @@ import org.springframework.stereotype.Service;
 @Service
 public class NotificationService {
 
-    private final MessageClient twilioClient;
+    private final MessageClient telegramClient;
 
-    public NotificationService(MessageClient twilioClient) {
-        this.twilioClient = twilioClient;
+    public NotificationService(MessageClient telegramClient) {
+        this.telegramClient = telegramClient;
     }
 
-    public ClientMessageResponse sendMessage(String to, String message) {
-        return this.twilioClient.sendMessage(to, message);
+    public ClientMessageResponse sendMessage(String message) {
+        return this.telegramClient.sendMessage(message);
     }
 }
